@@ -1,9 +1,15 @@
 <script>
 	import SplashScreen from './SplashScreen.svelte';
+
+  let started = false;
 </script>
 
 <main>
-	<SplashScreen />
+	{#if (!started)}
+		<SplashScreen on:click="{() => {started = true}}"/>
+		{:else}
+		Started
+	{/if}
 </main>
 
 <style>
