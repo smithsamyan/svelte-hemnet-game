@@ -1,7 +1,11 @@
 <script>
+  import {createEventDispatcher} from 'svelte';
+
   export let listing;
   let price;
   let comparison;
+
+  const location = `${listing.area ? listing.area + ", " : ""}${listing.municipality.fullName}`;
 
   const DIFFERENCE_ALLOWED = 300000;
 
@@ -11,24 +15,25 @@
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   });
+  const dispatch = createEventDispatcher();
 
   function compare(){
-    debugger;
     const difference = Math.abs(price - listing.askingPrice.amount);
     if(difference === 0){
-      comparison = {text: "Exakt pris! Spektakulärt!", color: "darkgreen"};
+      comparison = {text: "Exakt pris! Spektakulärt!", color: "darkgreen", points: 30};
     }
     else if(difference > DIFFERENCE_ALLOWED){
-      comparison = {text: `Fel, Skillnaden mellan din gissning och svaret var över ${numberFormatter.format(DIFFERENCE_ALLOWED)}`, color: "red"}
+      comparison = {text: `Fel, Skillnaden mellan din gissning och svaret var över ${numberFormatter.format(DIFFERENCE_ALLOWED)}`, color: "red", points: 0}
     } else {
-      comparison = {text: `Du var inom ${numberFormatter.format(DIFFERENCE_ALLOWED)}`, color: "green"};
+      comparison = {text: `Du var inom ${numberFormatter.format(DIFFERENCE_ALLOWED)}`, color: "green", points: 10};
     }
+    dispatch('points', {points: comparison.points});
   }
   
 </script>
 
 <h1>{listing.title}</h1>
-<h2>{listing.area}, {listing.municipality.fullName}</h2>
+<h2>{location}</h2>
 <img src={listing.thumbnail.url} />
 <p>
   <span>Antal rum: {listing.numberOfRooms}</span>
