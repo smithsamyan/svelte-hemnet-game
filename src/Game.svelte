@@ -1,5 +1,5 @@
 <script>
-	import { slide, fly } from 'svelte/transition';
+	import { slide, fly, scale } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 
   import Listing from './Listing.svelte';
@@ -11,7 +11,20 @@
 
   let points = 0;
   let currentListing = 0;
+  let submitted = false;
+  let done = false;
   $: listing = $listings?.data?.searchForSaleListings?.listings[currentListing];
+  $: endOfGame = currentListing === $listings?.data?.searchForSaleListings?.listings.length - 1;
+  $: buttonText =  endOfGame ? "Klar" : "Nästa";
+
+  function onNextClick(){
+    submitted = false;
+    if(endOfGame){
+      done = true;
+    } else {
+      currentListing += 1;
+    }
+  }
 </script>
 
 {#if $listings.loading}
@@ -28,12 +41,19 @@
       {/key}
     </span>
   </p>
-  {#if listing}
+  {#if listing && !done}
     {#key listing }
       <div key="{listing.id}" in:fly="{{ duration: 1000, x: 300, y: 0, opacity: 0.5, easing: quintOut}}">
-        <Listing listing={listing} on:points="{(e) => {points += e.detail.points}}" on:next="{() => currentListing += 1}" />
+        <Listing listing={listing} on:submitAnswer="{(e) => {points += e.detail.points; submitted = true}}" />
+        {#if submitted} <button on:click="{onNextClick}">{buttonText}</button> {/if}
       </div>
     {/key}
+  {/if}
+
+  {#if done}
+      <div in:scale="{{duration: 500, opacity: 0.5, easing: quintOut}}">
+        <h1 class="congratulations">Grattis! Du har fått <span style="color: green">{points}<span> poäng! 🥳</h1>
+      </div>
   {/if}
 {/if}
 
@@ -47,5 +67,9 @@
     display: flex;
     gap: 20px;
     font-size: 28px;
+  }
+
+  .congratulations {
+    font-size: 90px;
   }
 </style>

@@ -27,13 +27,8 @@
     } else {
       comparison = {text: `Du var inom ${numberFormatter.format(DIFFERENCE_ALLOWED)}`, color: "green", points: 10};
     }
-    dispatch('points', {points: comparison.points});
+    dispatch('submitAnswer', {points: comparison.points});
   }
-
-  const onNextClick = () => {
-    dispatch('next');
-  }
-  
 </script>
 
 <h1>{listing.title}</h1>
@@ -55,7 +50,6 @@
     <p>Din gissning: {numberFormatter.format(price)}</p>
     <p>Riktiga utgångspriset: {numberFormatter.format(listing.askingPrice.amount)}</p>
     <p style="color: {comparison.color}">{comparison.text}</p>
-    <button on:click="{onNextClick}">Nästa</button>
   {/if}
 
 </label>
