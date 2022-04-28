@@ -18,8 +18,11 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "@apollo/client": "^3.6.0",
+    "graphql": "^16.4.0",
     "node-sass": "^7.0.1",
     "sirv-cli": "^2.0.0",
+    "svelte-apollo": "^0.5.0",
     "svelte-preprocess": "^4.10.6"
   }
 }
