@@ -1,0 +1,4 @@
+<h1>Välkommen till Gissa Priset</h1>
+<h3>Med Hemnet</h3>
+
+<button>Starta</button>
