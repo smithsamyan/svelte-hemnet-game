@@ -29,6 +29,10 @@
     }
     dispatch('points', {points: comparison.points});
   }
+
+  const onNextClick = () => {
+    dispatch('next');
+  }
   
 </script>
 
@@ -51,6 +55,7 @@
     <p>Din gissning: {numberFormatter.format(price)}</p>
     <p>Riktiga utgångspriset: {numberFormatter.format(listing.askingPrice.amount)}</p>
     <p style="color: {comparison.color}">{comparison.text}</p>
+    <button on:click="{onNextClick}">Nästa</button>
   {/if}
 
 </label>
