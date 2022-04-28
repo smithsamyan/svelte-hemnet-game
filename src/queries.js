@@ -13,6 +13,9 @@ export const GET_LISTINGS = gql`
         askingPrice {
           amount
         }
+        numberOfRooms
+        formattedLandArea
+        formattedLivingArea
         ... on ActivePropertyListing {
           description
           thumbnail {

@@ -30,6 +30,13 @@
 <h1>{listing.title}</h1>
 <h2>{listing.area}, {listing.municipality.fullName}</h2>
 <img src={listing.thumbnail.url} />
+<p>
+  <span>Antal rum: {listing.numberOfRooms}</span>
+  <span>Area: {listing.formattedLivingArea}</span>
+  {#if listing.formattedLandArea}<span>Tomt: {listing.formattedLandArea}</span>{/if}
+</p>
+
+
 <label> 
   {#if !comparison}
   <p>Gissa utgångspriset inom {numberFormatter.format(DIFFERENCE_ALLOWED)}:</p>
