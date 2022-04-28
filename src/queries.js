@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_LISTINGS = gql`
-  query listing {
-    searchForSaleListings(search: {}, limit: 10) {
+  query getListings {
+    searchForSaleListings(search: { newConstruction: EXCLUDE }, limit: 10) {
       listings {
         id
         area
@@ -14,6 +14,26 @@ export const GET_LISTINGS = gql`
           amount
         }
         ... on ActivePropertyListing {
+          description
+          thumbnail {
+            url(format: ITEMGALLERY_CUT)
+          }
+        }
+        ... on DeactivatedBeforeOpenHousePropertyListing {
+          description
+          thumbnail {
+            url(format: ITEMGALLERY_CUT)
+          }
+        }
+        ... on ProjectUnit {
+          projectId
+          description
+          thumbnail {
+            url(format: ITEMGALLERY_CUT)
+          }
+        }
+        ... on Project {
+          description
           thumbnail {
             url(format: ITEMGALLERY_CUT)
           }
