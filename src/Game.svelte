@@ -33,7 +33,7 @@
   <p>Error: {$listings.error.message}</p>
 {:else}
   <p class="information">
-    <span>Steg {currentListing + 1}/{$listings.data.searchForSaleListings.listings.length}</span>
+    <span>Annons {currentListing + 1}/{$listings.data.searchForSaleListings.listings.length}</span>
     <span>
       Poäng: 
       {#key points}
@@ -52,7 +52,7 @@
 
   {#if done}
       <div in:scale="{{duration: 500, opacity: 0.5, easing: quintOut}}">
-        <h1 class="congratulations">Grattis! Du har fått <span style="color: green">{points}<span> poäng! 🥳</h1>
+        <h1 class="congratulations">Grattis! Du fick <span style="color: green">{points} poäng! 🥳<span></h1>
       </div>
   {/if}
 {/if}
